@@ -18,6 +18,10 @@ function LocationMarker({ pos, onError }) {
       map.flyTo([lat, lon]);
 
       const d = await reverse({ lat, lon });
+
+      if (d.error) {
+        throw new Error(d.error);
+      }
       
       setPosition({ lat, lon });
 
@@ -57,7 +61,7 @@ function LocationMarker({ pos, onError }) {
                 </ul>
               </>
             ) : (
-              "No content to show"
+              "Error while fetching OSM data"
             )}
           </Popup>
         </Marker>
